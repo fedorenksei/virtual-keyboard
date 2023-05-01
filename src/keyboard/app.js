@@ -1,14 +1,39 @@
 import * as keys from './components/keyboardKeys.js';
-import * as input from './components/inputField.js';
+import * as output from './components/inputField.js';
 
-function renderElement() {
-  const appElement = document.createElement('article');
-  appElement.classList.add('keyboard-app');
-  appElement.append(input.getElement());
-  appElement.append(keys.getElement());
-  return appElement;
+const constants = {
+  APP_CLASS: 'keyboard-app',
+};
+const outputElement = output.getElement();
+const keysElement = keys.getElement();
+
+function handleKeyPress(code) {
+  // todo: describe logic for functional keys
+  const character = keys.pressKey(code);
+  if (character) output.add(character);
 }
 
+document.addEventListener('keydown', (event) => {
+  const { code } = event;
+  handleKeyPress(code);
+  outputElement.focus();
+  event.preventDefault();
+});
+keysElement.addEventListener('mousedown', (event) => {
+  const code = keys.getCodeByMouseEvent(event);
+  if (code) handleKeyPress(code);
+});
+
+let appElement;
+function renderElement() {
+  appElement = document.createElement('article');
+  appElement.classList.add(constants.APP_CLASS);
+  appElement.append(outputElement);
+  appElement.append(keysElement);
+  return appElement;
+}
+renderElement();
+
 export default function getAppElement() {
-  return renderElement();
+  return appElement;
 }
