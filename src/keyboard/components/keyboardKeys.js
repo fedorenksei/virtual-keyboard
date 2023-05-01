@@ -15,6 +15,8 @@ const functionalKeys = new Set(['MetaLeft', 'MetaRight', 'Delete', 'Backspace', 
 
 let altKey = false;
 let ctrlKey = false;
+let shiftKey = false;
+let capsLock = false;
 const keyByCode = new Map();
 const keysList = new Set();
 
@@ -50,7 +52,7 @@ class Key {
       language = ENGLISH;
       window.localStorage.setItem(CLASSNAMES.LANG_PROP, ENGLISH);
     }
-    const currentValue = this.chars[language].basic;
+    const currentValue = this.chars[language][shiftKey ? 'shift' : 'basic'];
     this.element.innerText = currentValue || this.code;
   }
 
@@ -67,10 +69,14 @@ class Key {
       if (altKey) switchLanguage();
       return null;
     }
+    if (this.code === 'ShiftLeft' || this.code === 'ShiftRight') {
+      shiftKey = true;
+      keysList.forEach((key) => key.render());
+    }
+
     if (functionalKeys.has(this.code)) {
       return null;
     }
-
     if (this.code === 'Space') return ' ';
     if (this.code === 'Tab') return '\t';
     if (this.code === 'Enter') return '\n';
@@ -82,11 +88,13 @@ class Key {
 
     if (['AltRight', 'AltLeft'].includes(this.code)) {
       altKey = false;
-      return;
     }
     if (['ControlRight', 'ControlLeft'].includes(this.code)) {
       ctrlKey = false;
-      return;
+    }
+    if (this.code === 'ShiftLeft' || this.code === 'ShiftRight') {
+      shiftKey = false;
+      keysList.forEach((key) => key.render());
     }
   }
 }
