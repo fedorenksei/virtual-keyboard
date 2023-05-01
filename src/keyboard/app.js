@@ -13,13 +13,13 @@ const keysElement = keys.getElement();
 function handleKeyPress(code) {
   // todo: describe logic for functional keys
   const character = keys.pressKey(code);
+  outputElement.focus();
   if (character) output.add(character);
 }
 
 document.addEventListener('keydown', (event) => {
   const { code } = event;
   handleKeyPress(code);
-  outputElement.focus();
   event.preventDefault();
 });
 document.addEventListener('keyup', (event) => {
