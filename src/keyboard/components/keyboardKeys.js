@@ -52,7 +52,7 @@ class Key {
       language = ENGLISH;
       window.localStorage.setItem(CLASSNAMES.LANG_PROP, ENGLISH);
     }
-    const charsOfLang = this.chars[language]
+    const charsOfLang = this.chars[language];
     let keyCase = shiftKey ? 'shift' : 'basic';
     if (capsLock && /^[a-zа-яё]$/i.test(charsOfLang.basic)) {
       keyCase = 'shift';
