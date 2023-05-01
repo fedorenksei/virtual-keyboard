@@ -1,8 +1,11 @@
 import * as keys from './components/keyboardKeys.js';
 import * as output from './components/inputField.js';
+import createElement from './components/createElement.js';
 
 const constants = {
   APP_CLASS: 'keyboard-app',
+  DESCRIPTION_CLASS: 'keyboard-app__description',
+  DESCRIPTION_TEXT: 'This keyboard is created using macOS. Press Ctrl+Alt to switch between English and Russian layouts.',
 };
 const outputElement = output.getElement();
 const keysElement = keys.getElement();
@@ -37,10 +40,12 @@ keysElement.addEventListener('mousedown', (event) => {
 
 let appElement;
 function renderElement() {
-  appElement = document.createElement('article');
-  appElement.classList.add(constants.APP_CLASS);
+  appElement = createElement('article', constants.APP_CLASS);
   appElement.append(outputElement);
   appElement.append(keysElement);
+  const description = createElement('p', constants.DESCRIPTION_CLASS);
+  description.innerText = constants.DESCRIPTION_TEXT;
+  appElement.append(description);
   return appElement;
 }
 renderElement();
