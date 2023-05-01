@@ -19,3 +19,15 @@ export function add(character) {
   inputElement.value = newValue;
   inputElement.setSelectionRange(selection.start + 1, selection.start + 1);
 }
+
+export function backspace() {
+  const selection = getSelection();
+  const currentValue = inputElement.value;
+  const newStart = selection.start === selection.end
+    ? Math.max(0, selection.start - 1)
+    : selection.start;
+  let newValue = currentValue.slice(0, newStart);
+  newValue += currentValue.slice(selection.end);
+  inputElement.value = newValue;
+  inputElement.setSelectionRange(newStart, newStart);
+}

@@ -12,6 +12,10 @@ const keysElement = keys.getElement();
 
 function handleKeyPress(code) {
   // todo: describe logic for functional keys
+  if (code === 'Backspace') {
+    output.backspace();
+  }
+
   const character = keys.pressKey(code);
   outputElement.focus();
   if (character) output.add(character);
