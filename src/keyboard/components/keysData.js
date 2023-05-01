@@ -1,6 +1,6 @@
 const rows = [];
 
-const lastRow = ['Ctrl', 'Alt', 'Cmd', '', 'Cmd', 'Alt', '⇦', '⇧', '⇩', '⇨'];
+const lastRow = ['Ctrl', 'Alt', 'Cmd', ' ', 'Cmd', 'Alt', '⇦', '⇧', '⇩', '⇨'];
 const funcKeys = {
   tab: 'Tab',
   capsLock: 'Caps Lock',
