@@ -49,6 +49,7 @@ keysElement.addEventListener('mousedown', (event) => {
   const code = keys.getCodeByMouseEvent(event);
   if (!code) return;
   handleKeyPress(code);
+  event.preventDefault();
 
   document.addEventListener('mouseup', () => {
     keys.releaseKey(code);
