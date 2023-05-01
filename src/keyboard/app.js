@@ -11,7 +11,6 @@ const outputElement = output.getElement();
 const keysElement = keys.getElement();
 
 function handleKeyPress(code) {
-  // todo: describe logic for functional keys
   if (code === 'Backspace') {
     output.backspace();
   }
@@ -21,14 +20,28 @@ function handleKeyPress(code) {
   if (character) output.add(character);
 }
 
+const stickedKeys = new Set();
+let metaKey = false;
 document.addEventListener('keydown', (event) => {
   const { code } = event;
   handleKeyPress(code);
+  if (metaKey) stickedKeys.add(code);
+  if (code === 'MetaLeft' || code === 'MetaRight') {
+    metaKey = true;
+  }
   event.preventDefault();
 });
 document.addEventListener('keyup', (event) => {
   const { code } = event;
   keys.releaseKey(code);
+  if (code === 'MetaLeft' || code === 'MetaRight') {
+    stickedKeys.forEach((c) => {
+      keys.releaseKey(c);
+    });
+    metaKey = false;
+    return;
+  }
+  if (metaKey) stickedKeys.add(code);
 });
 
 keysElement.addEventListener('mousedown', (event) => {
