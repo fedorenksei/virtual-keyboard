@@ -52,7 +52,12 @@ class Key {
       language = ENGLISH;
       window.localStorage.setItem(CLASSNAMES.LANG_PROP, ENGLISH);
     }
-    const currentValue = this.chars[language][shiftKey ? 'shift' : 'basic'];
+    const charsOfLang = this.chars[language]
+    let keyCase = shiftKey ? 'shift' : 'basic';
+    if (capsLock && /^[a-zа-яё]$/i.test(charsOfLang.basic)) {
+      keyCase = 'shift';
+    }
+    const currentValue = charsOfLang[keyCase];
     this.element.innerText = currentValue || this.code;
   }
 
@@ -71,6 +76,10 @@ class Key {
     }
     if (this.code === 'ShiftLeft' || this.code === 'ShiftRight') {
       shiftKey = true;
+      keysList.forEach((key) => key.render());
+    }
+    if (this.code === 'CapsLock') {
+      capsLock = true;
       keysList.forEach((key) => key.render());
     }
 
@@ -94,6 +103,10 @@ class Key {
     }
     if (this.code === 'ShiftLeft' || this.code === 'ShiftRight') {
       shiftKey = false;
+      keysList.forEach((key) => key.render());
+    }
+    if (this.code === 'CapsLock') {
+      capsLock = false;
       keysList.forEach((key) => key.render());
     }
   }
