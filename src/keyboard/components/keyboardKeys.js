@@ -1,25 +1,26 @@
 import keysData from './keysData.js';
+import createElement from './createElement.js';
 
 const CLASSNAMES = {
   KEY: 'key',
-  KEY_PRESSED: 'key-pressed',
+  KEY_PRESSED: 'key_pressed',
   KEYBOARD: 'keyboard',
+  ROW: 'keyboard-row',
+  VERTICAL_ARROWS: 'keyboard__vertical-arrows',
 };
 
 class Key {
   constructor(data) {
     this.code = data.code;
-    this.en = data.en;
-    this.ru = data.ru;
+    this.chars = data.chars;
 
-    this.element = document.createElement('div');
-    this.element.classList.add(CLASSNAMES.KEY);
+    this.element = createElement('div', CLASSNAMES.KEY);
     this.element.dataset.code = this.code;
   }
 
   render() {
     // todo: get language from localStorage
-    this.element.innerText = this.en;
+    this.element.innerText = this.chars.en.basic || this.code;
     return this.element;
   }
 
@@ -33,18 +34,35 @@ class Key {
   }
 }
 
+// todo: render full keyboard
+const keyboard = createElement('div', CLASSNAMES.KEYBOARD);
+
 const keyByCode = new Map();
 const keysList = [];
-keysData.forEach((data) => {
-  const key = new Key(data);
-  keysList.push(key);
-  keyByCode.set(data.code, key);
-});
+const verticalArrows = createElement('div', CLASSNAMES.VERTICAL_ARROWS);
+keysData.forEach((rowData) => {
+  const rowElement = createElement('div', CLASSNAMES.ROW);
+  keyboard.append(rowElement);
 
-// todo: render full keyboard
-const keyboard = document.createElement('div');
-keyboard.classList.add(CLASSNAMES.KEYBOARD);
-keyboard.append(...keysList.map((key) => key.render()));
+  rowData.forEach((keyData) => {
+    const key = new Key(keyData);
+    keysList.push(key);
+    keyByCode.set(keyData.code, key);
+    const keyElement = key.render();
+
+    if (keyData.code === 'ArrowUp') {
+      verticalArrows.append(keyElement);
+      rowElement.append(verticalArrows);
+      return;
+    }
+    if (keyData.code === 'ArrowDown') {
+      verticalArrows.append(keyElement);
+      return;
+    }
+
+    rowElement.append(keyElement);
+  });
+});
 
 export function getElement() {
   return keyboard;
