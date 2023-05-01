@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  padding-top: 20px;
   min-height: 100vh;
 }
 
@@ -27,12 +28,17 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   border-radius: 3px;
   border: 1px solid black;
+  cursor: pointer;
   transition: 
     background-color 0.1s,
     color 0.1s;
 }
 
-.key_pressed {
+.key:hover {
+  background-color: lavender;
+}
+
+.key.key_pressed {
   background-color: cadetblue;
   color: white;
 }
