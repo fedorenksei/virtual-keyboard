@@ -11,6 +11,7 @@ const CLASSNAMES = {
 };
 const ENGLISH = 'en';
 const RUSSIAN = 'ru';
+const functionalKeys = new Set(['MetaLeft', 'MetaRight', 'Delete', 'Backspace', 'ShiftRight', 'ShiftLeft', 'CapsLock', 'ContextMenu']);
 
 let altKey = false;
 let ctrlKey = false;
@@ -66,7 +67,13 @@ class Key {
       if (altKey) switchLanguage();
       return null;
     }
+    if (functionalKeys.has(this.code)) {
+      return null;
+    }
 
+    if (this.code === 'Space') return ' ';
+    if (this.code === 'Tab') return '\t';
+    if (this.code === 'Enter') return '\n';
     return this.element.innerText;
   }
 
