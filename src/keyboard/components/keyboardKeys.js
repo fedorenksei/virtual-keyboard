@@ -27,6 +27,10 @@ class Key {
     this.element.classList.add(CLASSNAMES.KEY_PRESSED);
     return this.element.innerText;
   }
+
+  release() {
+    this.element.classList.remove(CLASSNAMES.KEY_PRESSED);
+  }
 }
 
 const keyByCode = new Map();
@@ -59,4 +63,9 @@ export function pressKey(code) {
   if (!key) return null;
   const character = key.press();
   return character;
+}
+
+export function releaseKey(code) {
+  const key = keyByCode.get(code);
+  if (key) key.release();
 }

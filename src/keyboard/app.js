@@ -19,9 +19,18 @@ document.addEventListener('keydown', (event) => {
   outputElement.focus();
   event.preventDefault();
 });
+document.addEventListener('keyup', (event) => {
+  const { code } = event;
+  keys.releaseKey(code);
+});
+
 keysElement.addEventListener('mousedown', (event) => {
   const code = keys.getCodeByMouseEvent(event);
-  if (code) handleKeyPress(code);
+  if (!code) return;
+  handleKeyPress(code);
+  document.addEventListener('mouseup', () => {
+    keys.releaseKey(code);
+  });
 });
 
 let appElement;
