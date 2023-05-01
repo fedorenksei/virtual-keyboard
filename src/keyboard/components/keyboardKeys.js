@@ -29,4 +29,4 @@ keyboard.append(...keys.map((key) => key.render()));
 
 export function getElement() {
   return keyboard;
-}
+};

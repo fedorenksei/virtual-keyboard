@@ -20,4 +20,17 @@ body {
 
 .key {
   margin: 5px;
+  background-color: whitesmoke;
+  display: grid;
+  place-items: center;
+  border-radius: 3px;
+  border: 1px solid black;
+  transition: 
+    background-color 0.1s,
+    color 0.1s;
+}
+
+.key-pressed {
+  background-color: cadetblue;
+  color: white;
 }
