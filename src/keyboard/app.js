@@ -29,7 +29,7 @@ document.addEventListener('keydown', (event) => {
   if (code === 'MetaLeft' || code === 'MetaRight') {
     metaKey = true;
   }
-  event.preventDefault();
+  if (!code.startsWith('Arrow')) event.preventDefault();
 });
 document.addEventListener('keyup', (event) => {
   const { code } = event;
