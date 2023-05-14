@@ -11,7 +11,7 @@ const CLASSNAMES = {
 };
 const ENGLISH = 'en';
 const RUSSIAN = 'ru';
-const functionalKeys = new Set(['MetaLeft', 'MetaRight', 'Delete', 'Backspace', 'ShiftRight', 'ShiftLeft', 'CapsLock', 'ContextMenu']);
+const functionalKeys = new Set(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'MetaLeft', 'MetaRight', 'Delete', 'Backspace', 'ShiftRight', 'ShiftLeft', 'CapsLock', 'ContextMenu']);
 
 let altKey = false;
 let ctrlKey = false;
